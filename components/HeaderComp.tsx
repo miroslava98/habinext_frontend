@@ -1,9 +1,13 @@
+import Login from "@/app/login";
 import { Header, Icon } from "@rneui/base";
+import { router, useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 
 const HeaderComp = () => {
+
+    const router = useRouter();
 
     return (
 
@@ -18,9 +22,8 @@ const HeaderComp = () => {
                         <Icon name="description" color="white" />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={{ marginLeft: 10 }}
-                    >
-                        <Icon type="antdesign" name="rocket1" color="white" />
+                        style={{ marginLeft: 10 }} onPress={() => router.push("/login")}>
+                        <Icon type="login" name="login" color="white" />
                     </TouchableOpacity>
                 </View>
             }
