@@ -25,6 +25,7 @@ const SearchBarComponent: React.FC = () => {
                 inputContainerStyle={{ backgroundColor: 'white' }}
                 placeholder="Busca una localización, propiedad..."
                 onChangeText={setSearch} 
+                value={search}
                 
                 
                 
