@@ -1,35 +1,53 @@
-import Login from "@/app/login";
+import React, { useState } from "react";
 import { Header, Icon } from "@rneui/base";
-import { router, useRouter } from "expo-router";
-import React from "react";
+import { useRouter } from "expo-router";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
+import ProfileMenuButton from "./ProfileMenuButton";
 
+import { useAuth } from "@/src/context/authcontext";
 
 const HeaderComp = () => {
 
     const router = useRouter();
+    const { userToken, logout } = useAuth();
+    const [profileMenuVisible, setProfileMenuVisible] = useState(false);
+
+
+
+    const handlePress = async () => {
+        if (userToken) {
+            setProfileMenuVisible(true);
+        } else {
+            router.push("/login");
+        }
+    };
+
 
     return (
 
-        <Header backgroundColor="#5E6E5E"
+        <><Header backgroundColor="#5E6E5E"
             leftComponent={{
                 icon: 'menu',
                 color: '#fff',
             }}
-            rightComponent={
-                <View style={styles.headerRight}>
-                    <TouchableOpacity>
-                        <Icon name="description" color="white" />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={{ marginLeft: 10 }} onPress={() => router.push("/login")}>
-                        <Icon type="login" name="login" color="white" />
-                    </TouchableOpacity>
-                </View>
-            }
-            centerComponent={{ text: 'HabiNext', style: styles.heading }}
-        />
+            rightComponent={<View style={styles.headerRight}>
+                <TouchableOpacity>
+                    <Icon name="description" color="white" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{ marginLeft: 10 }} onPress={handlePress}>
+                    <Icon
+                        type="material"
+                        name={userToken ? "logout" : "login"}
+                        color="white" />
+                </TouchableOpacity>
+            </View>}
+            centerComponent={{ text: 'HabiNext', style: styles.heading }} />
+            <>
+                <ProfileMenuButton visible={profileMenuVisible} onClose={() => setProfileMenuVisible(false)} />
 
+            </>
+        </>
     );
 };
 
@@ -52,5 +70,7 @@ const styles = StyleSheet.create({
 
 
 });
+
+
 
 
