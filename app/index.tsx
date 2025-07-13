@@ -27,94 +27,28 @@ export default function Index() {
   const isMobileSize = width < 768;
 
   return (
-    <>
-      <HeaderComp />
+    <><HeaderComp />
       <SearchBarComponent />
-
-      <ScrollView horizontal style={styles.scrollButtonsContainer}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}
+        style={styles.scrollButtonsContainer}>
         <View style={styles.buttonsContainer}>
-          <Button
-            title="Filtros ()"
-            buttonStyle={{
-              borderColor: 'black',
-              borderRadius: 10,
-            }}
-            type="outline"
-            titleStyle={{ color: 'black' }}
-            containerStyle={{
-              width: 100,
-              marginHorizontal: 5,
-              marginVertical: 10,
-            }}
-          />
-          <Button
-            title="Población"
-            buttonStyle={{
-              borderColor: 'black',
-              borderRadius: 10,
+          {["Filtros ()", "Población", "Precio", "Habitaciones", "Extras"].map((title, index) => (
+            <Button
+              key={index}
+              title={title}
+              buttonStyle={{
+                borderColor: 'black',
+                borderRadius: 10,
 
-            }}
-            type="outline"
-            titleStyle={{ color: 'black' }}
-            containerStyle={{
-              width: 100,
-              marginHorizontal: 5,
-              marginVertical: 10,
-            }}
-
-          />
-
-          <Button
-            title="Precio"
-            buttonStyle={{
-              borderColor: 'black',
-              borderRadius: 10,
-
-            }}
-            type="outline"
-            titleStyle={{ color: 'black' }}
-            containerStyle={{
-              width: 100,
-              marginHorizontal: 5,
-              marginVertical: 10,
-            }}
-
-          />
-          <Button
-            title="Habitaciones"
-            buttonStyle={{
-              borderColor: 'black',
-              borderRadius: 10,
-
-
-            }}
-            type="outline"
-            titleStyle={{ color: 'black' }}
-            containerStyle={{
-              width: 100,
-              marginHorizontal: 5,
-              marginVertical: 10,
-            }}
-
-          />
-
-          <Button
-            title="Extras"
-            buttonStyle={{
-              borderColor: 'black',
-              borderRadius: 10,
-
-            }}
-            type="outline"
-            titleStyle={{ color: 'black' }}
-            containerStyle={{
-              width: 100,
-              marginHorizontal: 5,
-              marginVertical: 10,
-            }}
-
-          />
-
+              }}
+              type="outline"
+              titleStyle={{ color: 'black' }}
+              containerStyle={{
+                marginHorizontal: 5,
+                marginVertical: 5,
+              }}
+            />
+          ))}
         </View>
       </ScrollView>
       {Platform.OS === 'web' ? (
@@ -156,8 +90,10 @@ export default function Index() {
         </>
 
       )}
-
+      {/*
       <Button title="Ir a funcionalidades" onPress={() => alert('Vamos allá 🚀')} />
+      */
+      }
     </>
 
   );
@@ -186,14 +122,10 @@ const styles = StyleSheet.create({
   },
   scrollButtonsContainer: {
     padding: 2,
-    height: 500,
+    paddingVertical: 20,
   },
   buttonsContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    width: '100%',
-    marginVertical: 5,
+    alignItems: 'center',
   }
 });
