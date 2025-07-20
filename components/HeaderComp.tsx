@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Header, Icon } from "@rneui/base";
-import { useRouter } from "expo-router";
+import { router,useRouter } from "expo-router";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import ProfileMenuButton from "./ProfileMenuButton";
 
@@ -30,7 +30,8 @@ const HeaderComp = () => {
                 icon: 'menu',
                 color: '#fff',
             }}
-            rightComponent={<View style={styles.headerRight}>
+            rightComponent={<
+                View style={styles.headerRight}>
                 <TouchableOpacity>
                     <Icon name="description" color="white" />
                 </TouchableOpacity>
@@ -38,7 +39,7 @@ const HeaderComp = () => {
                     style={{ marginLeft: 10 }} onPress={handlePress}>
                     <Icon
                         type="material"
-                        name={userToken ? "logout" : "login"}
+                        name={userToken ? "person" : "login"}
                         color="white" />
                 </TouchableOpacity>
             </View>}

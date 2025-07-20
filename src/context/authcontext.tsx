@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
+import { router } from 'expo-router';
 
 
 interface JwtPayload {
@@ -13,13 +14,15 @@ interface AuthContextType {
     loading: boolean;
     login: (token: string) => Promise<void>;
     logout: () => Promise<void>;
+    isTokenValid: (token:string) => boolean;
 }
 
 export const AuthContext = createContext<AuthContextType>({
     userToken: null,
     loading: true,
     login: async () => { },
-    logout: async () => { }
+    logout: async () => { },
+    isTokenValid: () => false,
 });
 
 interface AuthProviderProps {
@@ -50,6 +53,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             } else {
                 await AsyncStorage.removeItem('authToken');
                 setUserToken(null);
+               // router.push("/");
             }
         } catch (e) {
             console.error(e);
@@ -76,7 +80,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     };
 
     return (
-        <AuthContext.Provider value={{ userToken, loading, login, logout }}>
+        <AuthContext.Provider value={{ userToken, loading, login, logout, isTokenValid }}>
             {children}
         </AuthContext.Provider>
     );

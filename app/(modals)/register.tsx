@@ -1,8 +1,9 @@
 import api from "@/src/services/api";
+import { Ionicons } from "@expo/vector-icons";
 import { Input, Button, Divider } from "@rneui/base";
 import { router, useRouter } from "expo-router";
-import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { Modal, View, Text, StyleSheet, TextInput, TouchableOpacity, useWindowDimensions } from "react-native";
 
 
 
@@ -10,11 +11,18 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-nativ
 export default function Register() {
 
     const router = useRouter();
+    const { width } = useWindowDimensions();
+
+    const isMobileSize = width < 768;
+
+
 
     const [nombre, setNombre] = React.useState('');
     const [correo, setCorreo] = React.useState('');
     const [contrasenya, setContrasenya] = React.useState('');
     const [error, setError] = React.useState('');
+    const [mostrarContrasenya, setMostrarContrasenya] = React.useState(false);
+
 
 
     async function registro_usuario() {
@@ -39,14 +47,18 @@ export default function Register() {
 
 
 
-
-
-
     return (
+        <View style={[
+            styles.container, {
+                width: isMobileSize ? 'auto' : 500,
+                minHeight: isMobileSize ? 'auto' : 600,
+                alignSelf: isMobileSize ? 'auto' : 'center',
+                flex: isMobileSize ? 1 : 0,
+                marginTop: isMobileSize ? 'auto' : 30
+            },
+        ]}>
 
 
-
-        <View style={styles.container}>
             <Text style={{
                 fontSize: 25,
                 textAlign: 'center',
@@ -60,6 +72,7 @@ export default function Register() {
                 marginInlineStart: 30,
                 textAlign: 'left',
                 fontWeight: '400',
+                padding: isMobileSize ? 'auto' : 20
 
             }}>
                 Comprueba que el correo está bien escrito.
@@ -77,13 +90,27 @@ export default function Register() {
                     onChangeText={setNombre}
                     value={nombre} />
 
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry
-                    onChangeText={setContrasenya}
-                    value={contrasenya}
-                    placeholder="Contraseña"
-                    keyboardType="visible-password" />
+                <View style={{ position: 'relative', width: '100%' }}>
+                    <TextInput
+                        style={styles.input}
+                        secureTextEntry={!mostrarContrasenya}
+                        onChangeText={setContrasenya}
+                        value={contrasenya}
+                        placeholder="Contraseña"
+                        keyboardType="visible-password" />
+
+                    <TouchableOpacity
+                        onPress={() => setMostrarContrasenya(prev => !prev)}
+                        style={styles.toggleButton}
+                    >
+                        <Ionicons
+                            type=''
+                            name={!mostrarContrasenya ? 'eye-off' : 'eye'}
+                            size={20}
+                            color="#555"
+                        />
+                    </TouchableOpacity>
+                </View>
 
 
 
@@ -100,12 +127,12 @@ export default function Register() {
             <View style={styles.bottom}>
                 <Text style={{ fontSize: 15 }}>Ya tienes cuenta?</Text>
                 <TouchableOpacity
-                    onPress={() => { router.push("/login") }}>
+                    onPress={() => { router.push("/(modals)/login") }}>
                     <Text style={{ color: '#3C4B3C', fontWeight: 'bold', fontSize: 15 }}>Accede aquí</Text>
                 </TouchableOpacity>
             </View>
-        </View>
 
+        </View>
     );
 };
 
@@ -126,6 +153,7 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
+        borderRadius: 12,
         alignSelf: 'center',
         backgroundColor: 'white',
         borderBottomColor: 'white',
@@ -146,7 +174,12 @@ const styles = StyleSheet.create({
         gap: 5,
         marginTop: 10,
 
-    }
+    },
+    toggleButton: {
+        position: 'absolute',
+        right: 40,
+        top: 21,
+    },
 
 
 

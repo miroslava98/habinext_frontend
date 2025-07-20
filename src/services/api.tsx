@@ -10,9 +10,12 @@ const api = axios.create({
 
 api.interceptors.request.use(
     async config => {
-        const token = AsyncStorage.getItem('token');
-        if (token && !config.url?.includes('/auth/login') &&
-            !config.url?.includes('/auth/signup')) {
+        const token = await AsyncStorage.getItem('authToken');
+        console.log("token guardado", token);
+        if (
+            token && !config.url?.includes('/auth/login') &&
+            !config.url?.includes('/auth/signup') 
+        ) {
             config.headers.Authorization = `Bearer ${token}`;
         }
         return config;

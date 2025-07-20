@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, Platform, FlatList, useWindowDimensions, Scroll
 import SearchBarComponent from "@/components/SearchBar";
 import { Button } from "@rneui/base";
 import HeaderComp from "@/components/HeaderComp";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const miLista = [
@@ -19,9 +20,8 @@ const miLista = [
   { id: '10' },
 ];
 
-
-
 export default function Index() {
+
   const { width } = useWindowDimensions();
 
   const isMobileSize = width < 768;
@@ -51,8 +51,12 @@ export default function Index() {
           ))}
         </View>
       </ScrollView>
+
       {Platform.OS === 'web' ? (
-        <><Text style={styles.subtitle}>Estás en la versión web 🖥️</Text>
+        <>
+          {/*
+        <Text style={styles.subtitle}>Estás en la versión web 🖥️</Text>
+        */}
 
           <FlatList
             data={miLista}
@@ -89,7 +93,8 @@ export default function Index() {
           </FlatList>
         </>
 
-      )}
+      )
+      }
       {/*
       <Button title="Ir a funcionalidades" onPress={() => alert('Vamos allá 🚀')} />
       */

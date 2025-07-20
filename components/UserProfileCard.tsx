@@ -1,21 +1,21 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-const UserProfileCard = ({ name, profileImage, onEdit }: any) => {
+const UserProfileCard = ({ nombre, correo, imagenPerfil, onEdit }: any) => {
     return (
         <View style={styles.card}>
             <View style={styles.dataContainer}>
                 <Image
                     source={
-                        profileImage
-                            ? { uri: profileImage }
+                        imagenPerfil
+                            ? { uri: imagenPerfil }
                             : require("@/assets/images/react-logo.png") // o un avatar por defecto
                     }
                     style={styles.avatar}
                 />
                 <View style={styles.textContainer}>
-                    <Text style={styles.name}>Juan Pérez</Text>
-                    <Text style={styles.email}>juan@example.com</Text>
+                    <Text style={styles.name}>{nombre}</Text>
+                    <Text style={styles.email}>{correo}</Text>
                 </View>
 
             </View>
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: "#c8d1ba", // fondo principal
         padding: 20,
+        borderColor:'black', // borde blanco
         borderRadius: 10,
         marginVertical: 20,
         marginHorizontal: 16,
@@ -50,12 +51,12 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flexDirection: 'column',
-        alignSelf: 'flex-start',
+        alignSelf: 'center',
         marginLeft:10
 
     },
     name: {
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: "bold",
         color: "#FFFFFF",
         marginBottom: 5,
