@@ -18,6 +18,7 @@ const miLista = [
   { id: '8' },
   { id: '9' },
   { id: '10' },
+  { id: '11' },
 ];
 
 export default function Index() {
@@ -109,7 +110,6 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    padding: 20,
   },
   title: {
     fontSize: 24,
@@ -121,8 +121,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   item: {
-    flex: 1,
     margin: 6,
+    minWidth: 500
 
   },
   scrollButtonsContainer: {

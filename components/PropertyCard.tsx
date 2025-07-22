@@ -1,42 +1,56 @@
-import React from "react";
-import { Button, StyleSheet, Platform, Image, View } from "react-native";
+import React, { useState } from "react";
+import { Button, StyleSheet, Platform, Image, View, TouchableOpacity, Pressable } from "react-native";
 import { Card, Icon, Text } from '@rneui/base';
 
 
 
 const PropertyCard = () => {
+    const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <Card containerStyle={styles.container}>
-            <Image
-                source={require("../assets/images/imagen_piso.jpg")}
-                style={styles.image}
-                resizeMode="cover"
-            />
-            <Card.FeaturedSubtitle style={styles.title}>Piso en C/ Maestro Serrano 4</Card.FeaturedSubtitle>
+        <TouchableOpacity>
+            <Card containerStyle={styles.container}>
+                <Image
+                    source={require("../assets/images/imagen_piso.jpg")}
+                    style={styles.image}
+                    resizeMode="cover"
+                />
+                <Card.FeaturedSubtitle style={styles.title}>Piso en C/ Maestro Serrano 4</Card.FeaturedSubtitle>
 
-            <Card.FeaturedSubtitle>
-                60.000 €
-            </Card.FeaturedSubtitle>
-            <Card.Divider />
+                <Card.FeaturedSubtitle>
+                    60.000 €
+                </Card.FeaturedSubtitle>
+                <Card.Divider />
 
-            <View style={styles.card_details} >
-            <Icon  name="bathtub"></Icon><Text style={styles.text_item}>1 baño</Text>
-            <Icon  name="expand"></Icon><Text style={styles.text_item}>107m2</Text>
-            <Icon  name="stairs"></Icon><Text style={styles.text_item}>1ª planta</Text>
-            <Icon  name="bedroom-parent"></Icon><Text style={styles.text_item}>1 hab</Text>
-            </View>
+                <View style={styles.card_details} >
+                    <Icon name="bathtub"></Icon><Text style={styles.text_item}>1 baño</Text>
+                    <Icon name="expand"></Icon><Text style={styles.text_item}>107m2</Text>
+                    <Icon name="stairs"></Icon><Text style={styles.text_item}>1ª planta</Text>
+                    <Icon name="bedroom-parent"></Icon><Text style={styles.text_item}>1 hab</Text>
+                </View>
 
 
-            <Card.Divider />
+                <Card.Divider />
 
-            <View style={styles.card_details} >
-                <Icon style={styles.details_seller} name="person"></Icon>
-                <Text style={styles.text_item}>Vendedor particular</Text>
+                <Pressable
+                    onHoverIn={() => setIsHovered(true)}
+                    onHoverOut={() => setIsHovered(false)}
+                    style={{
+                        backgroundColor: isHovered ? '#a4bda4' : 'default',
+                        cursor: 'pointer',
+                        borderRadius: 5
+                    }}>
 
-            </View>
-            
-        </Card>
+                    <View style={styles.card_details} >
+                        <Icon style={styles.details_seller} name="person"></Icon>
+                        <Text style={styles.text_item}>Vendedor particular</Text>
+
+                    </View>
+                </Pressable>
+
+
+            </Card>
+        </TouchableOpacity>
     );
 };
 
@@ -45,7 +59,6 @@ const PropertyCard = () => {
 
 const styles = StyleSheet.create({
     container: {
-        width: 'auto',
         height: 'auto',
         flex: 1,
         backgroundColor: '#7c907c',
